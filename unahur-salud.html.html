@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNAHUR SALUD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --card: #1a1a1a;
+      --card-hover: #252525;
+      --text: #ffffff;
+      --text-secondary: #a0a0a0;
+      --accent: #3b82f6;
+      --accent-green: #22c55e;
+      --border: #2a2a2a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      max-width: 320px;
+      margin: 0 auto 20px;
+    }
+
+    /* Logo box */
+    .logo-box {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .logo-svg {
+      width: 160px;
+      height: 80px;
+    }
+
+    .qr-text {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .pillars {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.3px;
+    }
+
+    /* Section title */
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 32px 0 16px;
+      text-align: center;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 110px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card:hover {
+      background: var(--card-hover);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .card:active {
+      transform: translateY(0);
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      line-height: 1;
+    }
+
+    .card-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    /* Footer note */
+    .footer-note {
+      text-align: center;
+      margin-top: 36px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      padding: 0 12px;
+    }
+
+    /* Modal / info panel */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+    }
+
+    .overlay.active {
+      display: flex;
+    }
+
+    .panel {
+      background: var(--card);
+      border-radius: 20px 20px 16px 16px;
+      width: 100%;
+      max-width: 480px;
+      max-height: 70vh;
+      overflow-y: auto;
+      padding: 24px 20px 32px;
+      animation: slideUp 0.25s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .panel h2 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .panel p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .panel ul {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+
+    .panel li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+
+    .panel li:last-child {
+      border-bottom: none;
+    }
+
+    .close-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .close-btn:hover {
+      background: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-text">UNAHUR SALUD</div>
+      <p class="tagline">Tu salud también es parte de tu vida universitaria</p>
+
+      <div class="logo-box">
+        <!-- Simple logo recreation -->
+        <svg class="logo-svg" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+          <!-- Green frame -->
+          <path d="M20 30 Q20 15 35 15 L70 15" stroke="#22c55e" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M130 15 L165 15 Q180 15 180 30 L180 70 Q180 85 165 85 L130 85" stroke="#22c55e" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M20 70 L20 55" stroke="#22c55e" stroke-width="6" fill="none" stroke-linecap="round"/>
+          
+          <!-- Stethoscope -->
+          <path d="M75 25 Q75 45 90 55 Q105 45 105 25" stroke="#1e40af" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <circle cx="75" cy="22" r="8" fill="#1e40af"/>
+          <circle cx="105" cy="22" r="8" fill="#1e40af"/>
+          <path d="M90 55 L90 70" stroke="#1e40af" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="90" cy="78" r="10" fill="none" stroke="#1e40af" stroke-width="5"/>
+          <circle cx="90" cy="78" r="4" fill="#1e40af"/>
+          
+          <!-- Cross -->
+          <rect x="84" y="38" width="12" height="4" rx="1" fill="#3b82f6"/>
+          <rect x="88" y="34" width="4" height="12" rx="1" fill="#3b82f6"/>
+        </svg>
+      </div>
+
+      <p class="qr-text">Escaneá el QR y encontrá información<br>para cuidar tu salud.</p>
+      <p class="pillars">Orientación · Prevención · Atención</p>
+    </header>
+
+    <h2 class="section-title">¿Qué información necesitás?</h2>
+
+    <div class="grid">
+      <a href="#" class="card" data-topic="atencion">
+        <div class="card-icon">🩺</div>
+        <div class="card-label">Atención médica</div>
+      </a>
+
+      <a href="#" class="card" data-topic="mental">
+        <div class="card-icon">🧠</div>
+        <div class="card-label">Salud mental</div>
+      </a>
+
+      <a href="#" class="card" data-topic="nutricion">
+        <div class="card-icon">🍎</div>
+        <div class="card-label">Nutrición</div>
+      </a>
+
+      <a href="#" class="card" data-topic="sexual">
+        <div class="card-icon">😊</div>
+        <div class="card-label">Salud sexual y<br>reproductiva</div>
+      </a>
+
+      <a href="#" class="card" data-topic="vacunacion">
+        <div class="card-icon">💉</div>
+        <div class="card-label">Vacunación</div>
+      </a>
+
+      <a href="#" class="card" data-topic="discapacidad">
+        <div class="card-icon">♿</div>
+        <div class="card-label">Discapacidad</div>
+      </a>
+
+      <a href="#" class="card" data-topic="medicamentos">
+        <div class="card-icon">💊</div>
+        <div class="card-label">Medicamentos y<br>estudios</div>
+      </a>
+
+      <a href="#" class="card" data-topic="controles">
+        <div class="card-icon">📊</div>
+        <div class="card-label">Controles de salud</div>
+      </a>
+
+      <a href="#" class="card" data-topic="odontologia">
+        <div class="card-icon">🦷</div>
+        <div class="card-label">Odontología</div>
+      </a>
+
+      <a href="#" class="card" data-topic="otros">
+        <div class="card-icon">ℹ️</div>
+        <div class="card-label">Más información</div>
+      </a>
+    </div>
+
+    <p class="footer-note">
+      Cada opción tendrá información, contactos, centros de atención y orientación para solicitar turnos.
+    </p>
+  </div>
+
+  <!-- Overlay panel -->
+  <div class="overlay" id="overlay">
+    <div class="panel" id="panel">
+      <h2 id="panel-title"></h2>
+      <p id="panel-desc"></p>
+      <ul id="panel-list"></ul>
+      <button class="close-btn" onclick="closePanel()">Cerrar</button>
+    </div>
+  </div>
+
+  <script>
+    const info = {
+      atencion: {
+        title: "🩺 Atención médica",
+        desc: "Accedé a información sobre consultas médicas y servicios de salud en la universidad.",
+        items: [
+          "Consultas generales y clínicas",
+          "Derivaciones a especialistas",
+          "Horarios de atención del servicio médico",
+          "Cómo sacar turno"
+        ]
+      },
+      mental: {
+        title: "🧠 Salud mental",
+        desc: "Espacios de contención, orientación psicológica y recursos para el bienestar emocional.",
+        items: [
+          "Atención psicológica",
+          "Talleres de bienestar y manejo del estrés",
+          "Líneas de contención",
+          "Recursos de autocuidado"
+        ]
+      },
+      nutricion: {
+        title: "🍎 Nutrición",
+        desc: "Orientación nutricional y hábitos alimentarios saludables para la vida universitaria.",
+        items: [
+          "Consultas con nutricionistas",
+          "Talleres de alimentación saludable",
+          "Recomendaciones para estudiantes",
+          "Información sobre comedores y opciones"
+        ]
+      },
+      sexual: {
+        title: "😊 Salud sexual y reproductiva",
+        desc: "Información, prevención y acceso a métodos anticonceptivos y controles.",
+        items: [
+          "Métodos anticonceptivos",
+          "Prevención de ITS",
+          "Controles ginecológicos y andrológicos",
+          "Orientación y consejería"
+        ]
+      },
+      vacunacion: {
+        title: "💉 Vacunación",
+        desc: "Calendario de vacunación, campañas y puestos de vacunación disponibles.",
+        items: [
+          "Calendario nacional de vacunación",
+          "Campañas vigentes",
+          "Dónde vacunarse",
+          "Certificados y constancias"
+        ]
+      },
+      discapacidad: {
+        title: "♿ Discapacidad",
+        desc: "Recursos, apoyos y derechos para personas con discapacidad en el ámbito universitario.",
+        items: [
+          "Apoyos y adaptaciones",
+          "Accesibilidad en el campus",
+          "Trámites y certificaciones",
+          "Contactos de referencia"
+        ]
+      },
+      medicamentos: {
+        title: "💊 Medicamentos y estudios",
+        desc: "Información sobre medicamentos esenciales, estudios de laboratorio y cobertura.",
+        items: [
+          "Medicamentos del vademécum",
+          "Estudios de laboratorio frecuentes",
+          "Coberturas y derivaciones",
+          "Farmacias de referencia"
+        ]
+      },
+      controles: {
+        title: "📊 Controles de salud",
+        desc: "Controles preventivos recomendados según edad y situación.",
+        items: [
+          "Controles de rutina",
+          "Chequeos preventivos",
+          "Exámenes periódicos",
+          "Recomendaciones por edad"
+        ]
+      },
+      odontologia: {
+        title: "🦷 Odontología",
+        desc: "Atención odontológica y prevención de la salud bucal.",
+        items: [
+          "Consultas odontológicas",
+          "Prevención y higiene",
+          "Urgencias odontológicas",
+          "Cómo solicitar turno"
+        ]
+      },
+      otros: {
+        title: "ℹ️ Más información",
+        desc: "Otros recursos y contactos útiles de salud universitaria.",
+        items: [
+          "Centro de salud de la universidad",
+          "Emergencias y números útiles",
+          "Programas de promoción de la salud",
+          "Contacto general"
+        ]
+      }
+    };
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+        const topic = card.dataset.topic;
+        const data = info[topic];
+        if (!data) return;
+
+        document.getElementById('panel-title').textContent = data.title;
+        document.getElementById('panel-desc').textContent = data.desc;
+        
+        const list = document.getElementById('panel-list');
+        list.innerHTML = data.items.map(item => `<li>• ${item}</li>`).join('');
+        
+        document.getElementById('overlay').classList.add('active');
+      });
+    });
+
+    function closePanel() {
+      document.getElementById('overlay').classList.remove('active');
+    }
+
+    // Cerrar al hacer click fuera del panel
+    document.getElementById('overlay').addEventListener('click', (e) => {
+      if (e.target.id === 'overlay') closePanel();
+    });
+  </script>
+</body>
+</html>
